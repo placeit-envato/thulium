@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thulimn experiments</title>
+    
+    <style>
+        .placeholder{
+            width: 200px;
+            height: 200px;
+            background-color: #b8ff77;
+        }
+
+        .output{
+            color : #ff3827;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="placeholder">
+    <span id="output">output</span>
+</div>
+
+    
+<script type="text/template">
+    <%= 4+5 %>
+</script>
+
+<script>
+        
+    var template = document.getElementById('output').nodeValue;
+    console.log('>', template);
+</script>
+
+</body>
+</html>
