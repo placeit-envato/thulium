@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Thulimn experiments</title>
+    <title>Thulium experiments</title>
     
+    <script src="neon.js"></script>
+    <script src="Thulium.js"></script>
+
     <style>
         .placeholder{
             width: 200px;
@@ -25,14 +28,21 @@
 </div>
 
     
-<script type="text/template">
+<script id="template" type="text/template">
+    <% 444+6 %>
+    Normal text
+    <span> HTML Code </span>
+    <% if(true){ %>
+        <% console.log('only exec!'); %>
+    <% } %>
     <%= 4+5 %>
+    Text and <%= 'code' %>
 </script>
 
 <script>
-        
-    var template = document.getElementById('output').nodeValue;
-    console.log('>', template);
+    var template = document.getElementById('template').innerHTML;
+    var thulimInstance = new Tm(template);
+    console.log( thulimInstance.compile(template) );
 </script>
 
 </body>
