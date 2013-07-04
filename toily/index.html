@@ -28,21 +28,31 @@
 </div>
 
     
-<script id="template" type="text/template">
-    <% 444+6 %>
-    Normal text
-    <span> HTML Code </span>
-    <% if(true){ %>
-        <% console.log('only exec!'); %>
+<script id="template" type="text/template">    
+    este es el dos : <%= param2 %>
+    <% var myText='teeeeext!!!'; %>
+    <% for(var i = 0; i<10; i++) { %>
+        <%= 'echo-'+i %>
     <% } %>
-    <%= 4+5 %>
-    Text and <%= 'code' %>
+
+    <%= context.addHug( function(){ %>
+        mi texto dice <%= myText %>
+    <% }); %>
+
 </script>
 
 <script>
+
+    var context = {
+        addHug : function( cb ){
+            return cb()+' (>n_n)>';
+        }
+    }
+
     var template = document.getElementById('template').innerHTML;
     var thulimInstance = new Tm(template);
-    console.log( thulimInstance.compile(template) );
+    var compiledFunction = thulimInstance.process({context: context, param2 : 'mi segundo parametrio'});
+    console.log( compiledFunction );
 </script>
 
 </body>

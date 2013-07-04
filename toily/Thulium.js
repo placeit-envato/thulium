@@ -1,25 +1,67 @@
 var Tm = Class('Thulium')({
     prototype : {    
         
-        _templateChunk : [],
+        _templateArray : [],
+        _compiledTemplate : 'var _compiledSource = "", tm = this;\n',
 
         init : function( template ){
             this.template = template;
             return this;
         },
 
-        compile : function(){
-            //delegate printing and executing actions
-            return this.parse( this.template );
+        process : function( params ){
+            var paramNames  = [],
+                paramValues = [];
 
-            // var myCustomFunc = new Function('var i = 1; return i+1;');
+            //Parse and build 
+            this._parse( this.template );
             
-            // console.log( myCustomFunc() );
+            //Compile template array
+            var compiledSource = this._compile();
+
+            for( var paramName in params){
+                paramNames.push( paramName );
+                paramValues.push( params[paramName] );
+            }
             
-            // return 'compile';
+            console.log('---\n', compiledSource);
+
+            var compiledFunction = new Function( paramNames, compiledSource );
+
+            return compiledFunction.apply(this, paramValues);
         },
 
-        parse : function( template ){
+        _compile : function( params ){
+            var tm = this;
+
+            this._templateArray.forEach(function( partialNode ){
+                
+                switch (partialNode.type) {
+                    case 'text':
+                        tm._compiledTemplate += '_compiledSource += \''+ partialNode.value +'\';\n';
+                    break;
+                    case 'code':
+                        tm._compiledTemplate += partialNode.value + '\n';
+                    break;
+                    case 'print':
+                        tm._compiledTemplate += tm.printCode( partialNode.value );
+                    break;
+                }
+
+            });
+
+            this._compiledTemplate += 'return _compiledSource;';
+
+            return this._compiledTemplate;
+        },
+
+        printCode : function( templateString ){
+
+            return '_compiledSource += '+templateString+';\n';
+            
+        },
+
+        _parse : function( template ){
             
             var lookForOpen  = true,
                 wasPrintable = false,
@@ -53,7 +95,7 @@ var Tm = Class('Thulium')({
                     //is printable
                     if( (currentChar + next + third) == '<%=' ) {
                         //print current buffer
-                        this.printText( buffer );
+                        this._printText( buffer );
 
                         //flag printable
                         wasPrintable = true;
@@ -65,7 +107,7 @@ var Tm = Class('Thulium')({
                     //is executable
                     } else if( (currentChar + next) == '<%' ) {
                         //print current buffer
-                        this.printText( buffer );
+                        this._printText( buffer );
 
                         //flag exec
                         wasPrintable = false;
@@ -88,7 +130,7 @@ var Tm = Class('Thulium')({
                         //code was printable
                         if( wasPrintable ){
                             //print code
-                            this.prinTableCode( buffer + '%>' );
+                            this._prinTableCode( buffer.replace('<%=','') );
 
                             //reset buffer
                             buffer = '';
@@ -97,57 +139,27 @@ var Tm = Class('Thulium')({
                             lookForOpen = true;
 
                             //update iterator counter
-                            i = i+2;
+                            i = i+1;
 
                         //was exec code
                         } else {
-                            //update open tag Counter
-                            if( openTagCounter > 0 ) {
-                                openTagCounter--;
-                            }
 
-                            //All tags closed proceed to exectute code
-                            if( openTagCounter === 0 && openBracketCounter === 0){                                
-                                //delegate executable code
-                                this.executableCode( buffer + '%>' );
-                                
-                                //reset buffer
-                                buffer = '';
-
-                                //continue open bracket search
-                                lookForOpen = true;                            
-        
-                                //update iterator counter
-                                i = i+2;
-
-                            //not all tags and brackets closed continue buffering
-                            }else{
-                                buffer += currentChar;
-                            }
+                            //delegate executable code
+                            this._executableCode( buffer.replace('<%','') );
                             
+                            //reset buffer
+                            buffer = '';
+
+                            //continue open bracket search
+                            lookForOpen = true;                            
+    
+                            //update iterator counter
+                            i = i+1;
                         }
 
 
                     //is normal code, add to buffer
                     } else {
-                         
-                        //Build executable block
-                        //look for open tags
-                        if( (currentChar + next) == '<%' || (currentChar + next + third) == '<%=' ){
-                            openTagCounter++;
-                        }
-
-                        // look open bracket
-                        if( wasPrintable === false ){
-                            if( currentChar == '{' ){
-                                openBracketCounter++;
-                            }
-
-                            if( currentChar == '}' ){
-                                openBracketCounter--;
-                            }
-                        }
-
                         //buffering
                         buffer += currentChar;
                     }                    
@@ -155,31 +167,31 @@ var Tm = Class('Thulium')({
 
             }
 
-            return this._templateChunk;
+            return this._templateArray;
         },
 
-        printText : function( normalTextTemplate ){
-            this._templateChunk.push({
+        _printText : function( normalTextTemplate ){
+            this._templateArray.push({
                 type  : 'text',
-                value : normalTextTemplate
+                value : normalTextTemplate.replace(/\n/g, '\\n')
             });
 
             return this;
         },
 
-        prinTableCode : function( printableCode ){
-            this._templateChunk.push({
+        _prinTableCode : function( printableCode ){
+            this._templateArray.push({
                 type  : 'print',
-                value : printableCode
+                value : printableCode.replace(/\n/g, '\\n')
             });
 
             return this;
         },
 
-        executableCode : function( executableCode ){
-            this._templateChunk.push({
+        _executableCode : function( executableCode ){
+            this._templateArray.push({
                 type  : 'code',
-                value : executableCode
+                value : executableCode.replace(/\n/g, '\\n')
             });
 
             return this;
