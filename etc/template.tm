@@ -14,9 +14,16 @@ You can block the beejezus out of the template:
 LOL
 <% } %>
 
-<%= h.testBlock(function{ %>
+<%= h.testBlock(function () { %>
   This will print the output of the function. Also this text.
   <%= "Also this." %>
-<% }); %>
+<% }) %>
+
+<% if (true) { %>
+   Hello
+   <% if (true) { %>
+      Also, Hello
+   <% } %>
+<% } %>
 
 It doesn't make sense to have an equal in the bottom one. But hey! What do I know.
