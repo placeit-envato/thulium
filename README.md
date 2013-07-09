@@ -96,9 +96,13 @@ code is broken up, it should follow these rules:
   * The closing of the block should be with regular code tags
   * The result of the function is to be printed. (ie. Any printing
     operations inside the block will occurr before the block result)
-  * A context should be available in order to allow more fine-tuning of
-    the printing. (ie. A variable should be exposed to allow custom
-    pushing to the view, without the need to hack it)
+  * If the helper function has acces to an instance of the template
+    (e.g. by closure), it should be able to access the renderer and from
+    it the rendering function. (for example, if it has a closure to a
+    manager, it could easily just use `templateManager.view.renderer.render("hi")`)
+    This is very useful for helpers that need to wrap text around (e.g.
+    a formFor helper that wraps the passed function with the open and close
+    form tags.)
   * Printable code should not be terminated with a semicolon.
 
 #### Example ####

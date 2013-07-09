@@ -19,7 +19,8 @@
   },
   "version" : "0.0.1",
   "dependencies" : {
-    "neon" : "1.0.x"
+    "neon" : "1.0.x",
+    "microtime" : "latest"
   },
   "engines" : { "node" : ">= 0.10.0" },
   "main" : "./lib/thulium.js"
