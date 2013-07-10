@@ -18,7 +18,7 @@ $ node etc/test.js
 
 You'll be in a console with thulium already loaded. Yay!
 
-# Spec Draft 2013-07-08 #
+# Spec Draft 2013-07-10 #
 
 Thulium (Tm) is a templating engine written in javascript. It is based on
 EJS, but attempts to solve several problems with it: It formalizes the
@@ -161,23 +161,190 @@ implementation could change this as long as the core API behaves as expected.
 
 ```
 Thulium
+  +renderer
+  +parser
+  +template
   #init(config)
-  #parse()
-  #render()
+  #parse(callback)
+  #parseSync()
+  #render(context, callback)
+  #renderSync(context)
+```
+
+*(NOTE: sync and async methods are grouped below. The main difference is
+that whatever a sync function would return, the async version will pass
+as an argument to the callback function.)*
+
+*(NOTE: We have no clear definition for how to work the caching atm.
+especially on how we'll override it. Important for this part)*
+
+#### +renderer ####
+
+Reference to the template's renderer.
+
+#### +parser ####
+
+Reference to the template's parser.
+
+#### #init(config) ####
+
+Initializes a new instance of a Thulium template.
+
+##### parameters #####
+
+* **config**: Configuration to extend the template.
+
+##### returns #####
+
+New instance of a Template.
+
+#### #parse(callback) / #parseSync() ####
+
+Instantiates a new parser with self's template property as a string, to
+obtain the tokens.
+
+##### parameters #####
+
+N/A
+
+##### returns #####
+
+The resulting tokens from parsing the template.
+
+#### #render(context, callback) / #renderSync(context) ####
+
+Instantiates a new renderer and passes to it a token structure returned
+by the parser.
+
+##### parameters #####
+
+* **context**: The context under which to render the template.
+
+##### returns #####
+
+The string of the rendered document.
+
+--------------------------------------------------------------------------------
+
+```
+Thulium.Parser
+  +tokens
+  -template
+  #init(config)
+  #parse(callback)
+  #parseSync()
+```
+
+#### +tokens ####
+
+A generated structure with tokens. This property does not exist before
+parsing.
+
+#### #init(config) ####
+
+Initializes a new instance of a Thulium parser.
+
+##### parameters #####
+
+* **config**: Configuration to extend the parser.
+
+##### returns #####
+
+New instance of a Parser.
+
+#### #parse(callback) / #parseSync() ####
+
+Parses the view into tokens. The tokens represent an abstract version of
+the template that is easier to process/render. It will use its template
+property to do so.
+
+##### parameters #####
+
+N/A
+
+##### returns #####
+
+The resulting token structure.
+
+--------------------------------------------------------------------------------
+
+```
+Thulium.Renderer
+  +preView
+  +view
+  -tokens
+  -context
+  #init(config)
+  #render(callback)
+  #renderSync()
+  #print(message)
+```
+
+#### +preView ####
+
+The "source code" in javascript of the view. This is what will be
+evaluated to generate the final render.
+
+#### +view ####
+
+The rendered view. A string containing the final HTML string.
+
+#### #init(config) ####
+
+Initializes a new instance of a Thulium renderer.
+
+##### parameters #####
+
+* **config**: Configuration to extend the renderer.
+
+##### returns #####
+
+New instance of a Renderer.
+
+#### #render(callback) / #renderSync() ####
+
+Takes its own tokens property and generates a preView, then evaluates the
+preView to generate the final HTML view. 
+
+##### parameters #####
+
+N/A
+
+##### returns #####
+
+The final view.
+
+#### #print(message) ####
+
+Appends the passed message to the view. This is useful for doing custom
+text insertion with helpers.
+
+##### parameters #####
+
+* **message**: The message to append.
+
+##### returns #####
+
+N/A
+
+
+### API Technical Specification ###
+
+```
+Thulium
+  TBD
 ```
 
 ```
 Thulium.Parser
-  #parse()
+  TBD
 ```
 
 ```
 Thulium.Renderer
-  #render()
+  TBD
 ```
 
-More TBD:
-* Instance methods and properties reference. (Technical)
-* Optional: Caching (to improve rendering) (Renderer + Parser)
-* Tech Spec (Algorithmia and such)
-* The thulium default implementation token array (Parser)
+### Structure of the Tokens Array ###
+
+TBD
