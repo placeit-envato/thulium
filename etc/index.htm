@@ -47,6 +47,31 @@
         console.error(data);
       });
 
+      Li.performance = [];
+      Li.nest = 0;
+
+      // Performance enginestuff
+      Li.Engine.before.push(function (data) {
+        var perfObj = { 
+            message : 'executing: ' + (data.spy.targetObject.className || data.scope.constructor.className) + '.' + data.spy.methodName, 
+            nesting : window.top.Li.nest,
+            startTime : window.top.performance.now()
+        };
+        window.top.Li.performance.push(perfObj);
+        window.top.Li.nest++;
+      });
+
+      Li.Engine.after.push(function (data) {
+          window.top.Li.nest--;
+          perfObj = {
+              message : 'executed: ' + (data.spy.targetObject.className || data.scope.constructor.className) + '.' + data.spy.methodName, 
+              time : data.time, 
+              nesting : window.top.Li.nest
+          };
+
+          window.top.Li.performance.push(perfObj);
+      });
+
       Thulium.Parser.__objectSpy = new Li.ObjectSpy();
       Thulium.Parser.__objectSpy.spy(Thulium.Parser);
       Thulium.Parser.__objectSpy.spy(Thulium.Parser.prototype);
