@@ -35,8 +35,15 @@ It works the same in both the browser and node environments.
 
 ## Constraints ##
 
-* Javascript Based
-* Compatible with vanilla EJS
+* Javascript compatibility
+* EJS Compatibility (Vanilla features only)
+* Will not support any type of file handling or url expanding.
+* It will not support any way of adding "built-in" helpers.
+
+## Assumptions ##
+
+* The user will be able to build a context object independently
+* The user will be able to obtain the template string independently
 
 ## Blackbox ##
 
@@ -140,6 +147,9 @@ executed.
 * Should work in node and in browser.
 * Should work sync and async.
 
+*NOTE: These six points were tested out in an experiment with
+satisfactory results*
+
 ### Separation of Parser and Renderer ###
 
 While the most important part for alternate implementations must be to
@@ -167,7 +177,7 @@ Thulium.Renderer
 ```
 
 More TBD:
-* Instance methods and properties reference.
+* Instance methods and properties reference. (Technical)
 * Optional: Caching (to improve rendering) (Renderer + Parser)
 * Tech Spec (Algorithmia and such)
 * The thulium default implementation token array (Parser)
