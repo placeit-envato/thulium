@@ -12,26 +12,28 @@ Li.Engine.error.push(function executionEngine(data) {
 Li.performance = [];
 Li.nest = 0;
 
+performance = {now: function () { return Date.now() }}
+
 // Performance enginestuff
 Li.Engine.before.push(function (data) {
     var perfObj = { 
         message : 'executing: ' + (data.spy.targetObject.className || data.scope.constructor.className) + '.' + data.spy.methodName, 
-        nesting : window.top.Li.nest,
-        startTime : window.top.performance.now()
+        nesting : Li.nest,
+        startTime : performance.now()
     };
-    window.top.Li.performance.push(perfObj);
-    window.top.Li.nest++;
+    Li.performance.push(perfObj);
+    Li.nest++;
 });
 
 Li.Engine.after.push(function (data) {
-    window.top.Li.nest--;
+    Li.nest--;
     perfObj = {
         message : 'executed: ' + (data.spy.targetObject.className || data.scope.constructor.className) + '.' + data.spy.methodName, 
         time : data.time, 
-        nesting : window.top.Li.nest
+        nesting : Li.nest
     };
 
-    window.top.Li.performance.push(perfObj);
+    Li.performance.push(perfObj);
 });
 
 Thulium.Parser.__objectSpy = new Li.ObjectSpy();
@@ -43,7 +45,18 @@ Thulium.Renderer.__objectSpy.spy(Thulium.Renderer);
 Thulium.Renderer.__objectSpy.spy(Thulium.Renderer.prototype);
 
 tm = Thulium.loadTemplateSync('etc/template.tm');
-tm.render({i: 12, helpers: {embolden : function(fn){ tm.renderer.print("<strong>"); fn(); return "</strong>";  }}});
+tm.render({i: 12, helpers: {
+  embolden : function(fn){
+    tm.renderer.print("<strong>");
+    fn();
+    return "</strong>";  
+  },
+  reverse : function(toCapture) {
+    var buf = tm.renderer.capture(toCapture);
+
+    return buf.split("").reverse().join("");
+  }
+}});
 
 /*repl.start({
   prompt : "tm> ",

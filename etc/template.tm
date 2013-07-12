@@ -20,6 +20,11 @@
     <%= "Also this." %>
   <% }) %>
 
+  <%= helpers.reverse(function () { %>
+    This will reverse the string.
+    <%= "The whole string" %>
+  <% }) %>
+
   <% if (true) { %>
      Hello
      <% if (true) { %>
