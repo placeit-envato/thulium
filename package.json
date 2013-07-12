@@ -1,0 +1,28 @@
+{
+  "name" : "thulium",
+  "description" : "A simple templating engine based on EJS.",
+  "contributors" : [
+    {
+      "name"  : "Ben Beltran",
+      "email" : "ben@nsovocal.com",
+      "url" : "http://nsovocal.com"
+    },
+    {
+      "name"  : "Joaquin Benitez",
+      "email" : "escusado@gmail.com",
+      "url" : "http://toily.mx"
+    }
+  ],
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/freshout-dev/thulium.git"
+  },
+  "version" : "0.0.1",
+  "dependencies" : {
+    "neon" : "1.0.x",
+    "microtime" : "latest"
+  },
+  "engines" : { "node" : ">= 0.10.0" },
+  "main" : "./lib/thulium.js"
+}
+
