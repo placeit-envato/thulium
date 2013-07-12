@@ -201,7 +201,7 @@ New instance of a Template.
 #### #parse(callback) / #parseSync() ####
 
 Instantiates a new parser with self's template property as a string, to
-obtain the tokens.
+obtain the tokens. Sets self's `_tokens` to the resulting tokens.
 
 ##### parameters #####
 
@@ -209,7 +209,7 @@ N/A
 
 ##### returns #####
 
-The resulting tokens from parsing the template.
+The instance of thulium (for chaining)
 
 #### #render(context, callback) / #renderSync(context) ####
 
