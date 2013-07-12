@@ -358,11 +358,19 @@ Thulium.Parser
       set self's key property to value
     if no seld.template is defined
       log warning
-  #tokenize()
+  #parse()
     if this.template
       call _tokenize()
     else
       log warning
+  #parseSync(callback)
+    if this.template
+      call _tokenize()
+      let returnValue be self _tokens
+    else
+      log warning
+      let returnValue be object with error
+    call callback(returnValue)
   #_tokenize( source, nextToken )
     if not source
       let source be self template
