@@ -270,12 +270,12 @@ The resulting token structure.
 
 ```
 Thulium.Renderer
-  +preView
   +view
+  +tokens
+  +context
+  -preView
   -captured
   -shouldCapture
-  -tokens
-  -context
   #init(config)
   #render(callback)
   #renderSync()

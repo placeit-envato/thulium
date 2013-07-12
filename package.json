@@ -23,6 +23,6 @@
     "microtime" : "latest"
   },
   "engines" : { "node" : ">= 0.10.0" },
-  "main" : "./lib/thulium.js"
+  "main" : "./lib/Thulium.js"
 }
 
