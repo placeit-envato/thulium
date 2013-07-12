@@ -353,8 +353,73 @@ Thulium
 
 ```
 Thulium.Parser
-  TBD
-```
+  #init( config )
+    for every key and value in config
+      set self's key property to value
+    if no seld.template is defined
+      log warning
+  #tokenize()
+    if this.template
+      call _tokenize()
+    else
+      log warning
+  #_tokenize( source, nextToken )
+    if not source
+      let source be self template
+    if not nextToken
+      let self _tokens be an empty array
+      let nextToken be self lex tagOpen
+    if nextToken.hasText
+      let tokenizerRe be concat(self lext text matcher, nextToken.matcher)
+    else
+      let tokenizerRe be nextToken.matcher
+    let tokenizerRe be a regex built using tokenizerRe
+    let matches be exec tokenizerRe on source
+    if matches
+      if nextToken is self lex tagOpen
+        let textType be 'text'
+      else
+        let textType be 'code'
+      if nextToken.hasText
+        push object with type textType and value matches[1] to self _tokens
+      push object with type nextToken.name to self _tokens
+      if nextToken is self lex tagClose and self _openPints length is greater than 0
+        call self _countBrackets( matches[1] )
+      let source be substring of source up to tokenizerRe.lastIndex
+      let nextToken be call self _nextToken( nextToken )
+      call self _tokenize( source, nextToken )
+    else
+      if nextToken.optional
+        let source be substring of source up to tokenizerRe.lastIndex
+        let nextToken be call self _nextToken( nextToken )
+        call self _tokenize( source, nextToken )
+      else
+        warn the coder about syntax error
+  #_nextToken( token )
+    switch token
+      case self lex tagOpen
+        return self lex printIndicator
+      case self lex tagClose
+        return self lex tagOpen
+      case self lex printIndicator
+        retun self lex tagClose
+  #_countBrackets( text )
+    walk every character on text
+      if current character is {
+        self _openBrackets++
+        let foundBrackets be true
+      if current character is }
+        self _openBrackets--
+        call self _closePint()
+        let foundBrackets be true
+      if not foundBrackets
+        call self _closePrint()
+  #_closePint
+    let i be the index of self _openBrackets on self _openPints
+    if i is greater or equals to 0
+      push object with type 'closePrintIndicator' to self _tokens
+      remove token from self _openPrints
+``` 
 
 ```
 Thulium.Renderer
