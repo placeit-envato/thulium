@@ -272,12 +272,15 @@ The resulting token structure.
 Thulium.Renderer
   +preView
   +view
+  -captured
+  -shouldCapture
   -tokens
   -context
   #init(config)
   #render(callback)
   #renderSync()
   #print(message)
+  #capture(toPrint)
 ```
 
 #### +preView ####
@@ -327,6 +330,19 @@ text insertion with helpers.
 
 N/A
 
+#### #capture(toPrint) ####
+
+Captures toPrint, so anything it executes that would be printed to the
+view, is instead returned.
+
+##### parameters #####
+
+* **toCapture**: A function that should print something to the view.
+
+##### returns #####
+
+The string of whatever the function would have printed to the view.
+
 
 ### API Technical Specification ###
 
@@ -342,9 +358,91 @@ Thulium.Parser
 
 ```
 Thulium.Renderer
-  TBD
+  #init(config)
+    for every key and value in config
+      set self's key property to value
+  #render(callback)
+    call renderSync
+    if callback
+      call callback with self's view as arguments
+  #renderSync()
+    if self has property tokens
+      let buffer be an empty string
+      for every token in self's tokens
+        if token type is text
+          sanitize token value, wrap in print statement and append to buffer
+        if token type is code
+          append value to buffer
+        if token type is printIndicator
+          append open print statement to buffer
+        if token type is closePrintIndicator
+          append close print statement to buffer
+      set self's preView to buffer
+      create a function with buffer as body, wrapped with self's context property
+      apply the function to self
+      return self's view property
+    else
+      raise error
+  #print(message)
+    let buffer be an empty string
+    if message is a function
+      append result of function to buffer
+    else
+      append message to buffer
+
+    if self should capture
+      append buffer to self's captured property
+    else
+      append buffer to self's view property
+  #capture(toCapture)
+    set self's captured to an empty string
+    set self's should capture to true
+    call toCapture
+    set self's should capture to false
+    return self's captured property
 ```
 
 ### Structure of the Tokens Array ###
 
-TBD
+#### The array ####
+```
+[token, token, token]
+```
+
+Yup, that's it.
+
+#### The Tokens ####
+
+##### text #####
+
+```
+{
+  type: "text",
+  value: "some text"
+}
+```
+
+##### code #####
+
+```
+{
+  type: "code",
+  value: "JS Code"
+}
+```
+
+#### printIndicator #####
+
+```
+{
+  type: "printIndicator"
+}
+```
+
+#### closePrintIndicator #####
+
+```
+{
+  type: "closePrintIndicator"
+}
+```
