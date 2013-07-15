@@ -17,10 +17,9 @@
     "type" : "git",
     "url" : "https://github.com/freshout-dev/thulium.git"
   },
-  "version" : "0.0.1",
+  "version" : "0.1.0",
   "dependencies" : {
-    "neon" : "1.0.x",
-    "microtime" : "latest"
+    "neon" : "1.0.x"
   },
   "engines" : { "node" : ">= 0.10.0" },
   "main" : "./lib/Thulium.js"
