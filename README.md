@@ -9,17 +9,29 @@ system.
 
 ## Usage ##
 
-Right now it's in heavy testing/dev mode. Not reallk "a thing". But this
-will make your life easier:
+It's easy to use. If you want it in the browser, just require the files.
+If using node:
 
 ```
-$ npm install
-$ npm link
-$ npm link thulium
-$ node etc/test.js
+$ npm install thulium
 ```
 
-You'll be in a console with thulium already loaded. Yay!
+From there, it's as easy as:
+
+```
+tm = new Thulium({template: "A template string"});
+tm.parseSync().renderSync(context);
+```
+
+Of course, async methods are available:
+
+```
+tm.parse(function () {
+  tm.render(context, function (view) {
+    console.log(view);
+  })
+})
+```
 
 ## Examples ##
 

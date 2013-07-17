@@ -17,7 +17,7 @@
     "type" : "git",
     "url" : "https://github.com/freshout-dev/thulium.git"
   },
-  "version" : "0.1.1",
+  "version" : "0.1.2",
   "dependencies" : {
     "neon" : "1.0.x"
   },
