@@ -3,6 +3,9 @@
 A proper templating engine. With specs and a syntax that isn't crazy (ie. Not
 Jade and not EJS).
 
+It depends on [Neon](https://github.com/azendal/neon) for the class
+system.
+
 
 ## Usage ##
 

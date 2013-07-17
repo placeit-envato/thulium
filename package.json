@@ -1,6 +1,6 @@
 {
   "name" : "thulium",
-  "description" : "A simple templating engine based on EJS.",
+  "description" : "A simple, fast, and debuggable templating engine for JS (node + browser)",
   "contributors" : [
     {
       "name"  : "Ben Beltran",
@@ -17,7 +17,7 @@
     "type" : "git",
     "url" : "https://github.com/freshout-dev/thulium.git"
   },
-  "version" : "0.1.0",
+  "version" : "0.1.1",
   "dependencies" : {
     "neon" : "1.0.x"
   },
