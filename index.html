@@ -32,12 +32,22 @@
       <div class="tagline">The template engine for developers.</div>
     </div>
   
-      <div class="unit">
+    <a class="get-code" href="https://github.com/freshout-dev/thulium">Get the code on Github</a>
 
-              <div class="button try-button">
-                  <span class="try"></span>
-                  <div class="shade"></div>
-              </div>
+    <div class="content">
+      <div class="unit">
+        <div class="title first">What is it?</div>
+        <p class="content">
+          A proper JS templating engine. With specs and a syntax that isn't crazy (ie. Not Jade and not EJS).
+        </p>
+      </div>
+
+<div class="unit">
+
+        <div class="button try-button">
+            <span class="try"></span>
+            <div class="shade"></div>
+        </div>
         
         <div class="sandbox collapsed">
           <div class="input">
@@ -121,14 +131,6 @@ tm.parseSync().renderSync( data ); //time</code></pre>
         </div>
       </div>
 
-    <div class="content">
-      <div class="unit">
-        <div class="title first">What is it?</div>
-        <p class="content">
-          A proper JS templating engine. With specs and a syntax that isn't crazy (ie. Not Jade and not EJS).
-        </p>
-      </div>
-
       <div class="unit">
         <div class="title third">C'mon, You know what I mean.</div>
         <p class="content">
@@ -140,8 +142,9 @@ tm.parseSync().renderSync( data ); //time</code></pre>
       <div class="unit">
         <div class="title fourth h1">Usage</div>
         <p class="content">
-        <p>It's easy to use. If you want it in the browser, just copy them somewhere in your project and require the files: </p>
-          <pre><code>
+        <p>It's easy to use. If you want it in the browser, just copy them somewhere in your project and require the files (Thulium uses <a href="https://github.com/azendal/neon">neon.js</a> for its class system): </p>
+          <pre><code data-language="html">
+&lt;script src="/vendor/neon.js"&gt;&lt;/script&gt; //Class system
 &lt;script src="/vendor/thulium/Thulium.js"&gt;&lt;/script&gt;
 &lt;script src="/vendor/thulium/Thulium/Util.js"&gt;&lt;/script&gt;
 &lt;script src="/vendor/thulium/Thulium/Parser.js"&gt;&lt;/script&gt;
