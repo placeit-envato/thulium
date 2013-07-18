@@ -71,14 +71,18 @@ body {
 }
 
 .name{
-	/*margin-bottom : 10px;*/
-    margin-top: 10px;
+    margin-top: 20px;
 	text-align  : center;
 	font-family : 'Montserrat', sans-serif;
 	font-size   : 48px;
 	font-weight : bold;
 
 	color       : #424242;
+}
+
+.name span{
+    font-size: 24px;
+    color : #649DFD;
 }
 
 .tagline {
@@ -98,7 +102,7 @@ body {
 
 .get-code-button{
     background-color : #649DFD;
-
+    width: 210px;
 }
 
 /********************************* .title */
