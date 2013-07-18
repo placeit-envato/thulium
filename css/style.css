@@ -43,9 +43,6 @@ body {
     background-color: rgba(255,255,255,.5);
 }
 
-
-
-
 /******************************************** document */
 .top-line{
 	width: 100%;
@@ -65,7 +62,7 @@ body {
 
 .header {
 	padding-top: 50px;
-	margin-bottom: 50px;
+	margin-bottom: 15px;
 }
 
 .tm-icon {
@@ -75,7 +72,7 @@ body {
 
 .name{
 	/*margin-bottom : 10px;*/
-
+    margin-top: 10px;
 	text-align  : center;
 	font-family : 'Montserrat', sans-serif;
 	font-size   : 48px;
@@ -91,6 +88,17 @@ body {
 	font-weight: bold;
 	font-size: 16px;
 	color: #969696;
+}
+
+.get-code{
+    text-align: center;
+    display: block;
+    text-decoration: none;
+}
+
+.get-code-button{
+    background-color : #649DFD;
+
 }
 
 /********************************* .title */
@@ -130,12 +138,16 @@ body {
 
 /********************************* .sandbox */
 
+.or{
+    text-align: center;
+}
+
 .try-button{
 	background-color: #ffcc33;
 	margin: auto;
 	width: 210px;
 	text-align: center;
-	left: 34%;
+	left: 219px;
 }
 
 .try-button span:before{
@@ -149,6 +161,8 @@ body {
 .sandbox.collapsed{
 	max-height:0px;
 	opacity: 0;
+    margin: 0;
+    padding: 0 10px 0 10px;
 }
 
 .sandbox {
@@ -163,7 +177,7 @@ body {
 	max-height:1000px;
 	opacity: 1;
 	
-	transition: max-height 1s, opacity 1s;
+	transition: max-height 1s, opacity 1s, margin 1s, padding 1s;
 }
 
 
