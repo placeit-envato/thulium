@@ -38,7 +38,7 @@
       <div class="unit">
         <div class="title first h1">What is it?</div>
         <p class="content">
-          A proper JS templating engine. With <a href="https://github.com/freshout-dev/thulium/blob/master/spec.md">specs</a> and a <a href="#simple-template">syntax that isn't crazy</a>. (ie. Not Jade and not EJS)
+          A proper JS templating engine. With <a href="https://github.com/freshout-dev/thulium/blob/master/spec.md">specs</a> and a <a href="#simple-template">syntax that isn't crazy</a>. (eg. Not Jade and not EJS)
         </p>
       </div>
 
@@ -143,17 +143,17 @@ tm.parseSync().renderSync( data ); //time</code></pre>
       <div class="unit">
         <div class="title third h1">So ... what is it?</div>
         <p class="content">
-          <p>Thulium (Tm) is a templating engine written in javascript. It is based on EJS, but attempts to solve several problems with it: It formalizes the syntax and it attempts to make it more debuggable.</p>
-          <p>This was a result of the EJS implementation being in direct need of performance, specification and debuggability. It works on the browser and in your server!</p>
+          <p>Thulium (Tm) is a templating engine written in javascript. It's based on EJS, but attempts to solve several problems with it: It formalizes the syntax, makes it fast and attempts to make it more debuggable.</p>
+          <p>This was a result of the EJS implementation being in dire need of performance, specification and debuggability. It works on the browser and in your server!</p>
 
-          <span class="title">What is not:</span>
+          <span class="title">What it's not:</span>
           <ul>
             <li>EJS</li>
             <li>HTML shorthands</li>
             <li>Jade, Handlebars, Mustache, Swig, Dust, DomJs, Underscore, etc.</li>
           </ul>
           
-          <p>Just think of it as a super fast Eruby-ish for Javascript. We are still working on boosting the performance but <a href="http://jsperf.com/thulium-vs-underscore-and-ejs">check it for yourself</a>! :D</p>
+          <p>Just think of it as a super fast Erubis-ish for Javascript. We're still working on boosting the performance but <a href="http://jsperf.com/thulium-vs-underscore-and-ejs">check it out for yourself</a>! :D</p>
 
         </p>
       </div>
@@ -161,7 +161,7 @@ tm.parseSync().renderSync( data ); //time</code></pre>
       <div class="unit">
         <div class="title fourth h1">Usage</div>
         <p class="content">
-        <p>It's easy to use. If you want it in the browser, just copy them somewhere in your project and require the files (Thulium uses <a href="https://github.com/azendal/neon">neon.js</a> for its class system): </p>
+        <p>It's easy to use. If you want it in the browser, just copy the files somewhere in your project and require the files (Thulium uses <a href="https://github.com/azendal/neon">neon.js</a> for its class system): </p>
           <pre><code data-language="html">
 &lt;script src="/vendor/neon.js"&gt;&lt;/script&gt; //Class system
 &lt;script src="/vendor/thulium/Thulium.js"&gt;&lt;/script&gt;
@@ -255,12 +255,12 @@ This guy will be bold.
       // Let's imagine for a second that templateManager is a reference
       // to a ... um, template manager. That has an instance of the
       // current view. Which is our instance of Tm
-      templateManager.currentView.renderer.print("<strong>");
+      templateManager.currentView.renderer.print("<strong>"); // You can send custom prints at any point
 
       // here we're printing that stuff inside the block by executing it
       printable();
 
-      return "</strong>";
+      return "</strong>";  // And/or just return a string, and it will be printed.
     }
  }
 }</code></pre>
