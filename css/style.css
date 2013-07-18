@@ -137,7 +137,7 @@ body {
 }
 
 .try-button span:before{
-	content : "Try now!";
+	content : "Let me try it NOOOW!";
 }
 
 .try-button span.hide:before{
@@ -155,7 +155,7 @@ body {
 	background-color: #fff;
 	border: 1px solid rgba(0,0,0,.1);
 	border-radius: 3px;
-	padding: 10px;
+	padding: 10px 10px 25px;
 
 	overflow: hidden;
 	max-height:1000px;
