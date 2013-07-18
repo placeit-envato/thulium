@@ -137,7 +137,7 @@ body {
 }
 
 .try-button span:before{
-	content : "Let me try it NOOOW!";
+	content : "Try it right here!";
 }
 
 .try-button span.hide:before{
@@ -195,6 +195,10 @@ body {
 .result pre{
 	margin-top: 5px;
 	border-radius: 3px;
+}
+
+.compile-example{
+    display: none;
 }
 
 .run-button{

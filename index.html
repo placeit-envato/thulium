@@ -12,6 +12,12 @@
   <script src="js/rainbow-custom.min.js"></script>
   <script src="js/jquery.js"></script>
 
+  <script src="https://rawgithub.com/azendal/neon/master/neon.js"></script>
+  <script src="https://rawgithub.com/freshout-dev/thulium/master/lib/Thulium.js"></script>
+  <script src="https://rawgithub.com/freshout-dev/thulium/master/lib/Thulium/Parser.js"></script>
+  <script src="https://rawgithub.com/freshout-dev/thulium/master/lib/Thulium/Renderer.js"></script>
+  <script src="https://rawgithub.com/freshout-dev/thulium/master/lib/Thulium/Util.js"></script>
+
 </head>
 <body>
   
@@ -56,25 +62,23 @@
             <div class="highlighted-code">
               <pre><code data-language="javascript">var data =</code></pre>
             </div>
-            <textarea class="code" name="context">
-{
-  baseUrl : 'my.domain.com/'
+            <textarea class="code" name="context">{
+  baseUrl : 'my.domain.com/',
   posts : [
     {
       title   : 'Per Teodor Cleve',
       date    : '10/2/1840',
-      content : 'Thulium was discovered by Swedish chemist Per Teodor Cleve in 1879'
+      content : 'Thulium was discovered by Swedish chemist Per Teodor Cleve in 1879',
       slug    : 'per-teodor-cleve'
     },
     {
       title   : 'Albert Hofmann',
       date    : '11/01/1906',
-      content : 'Albert Hofmann was first scientist and person to synthesize, ingest, and learn of the psychedelic effects of lysergic acid diethylamide'
+      content : 'Albert Hofmann was first scientist and person to synthesize, ingest, and learn of the psychedelic effects of lysergic acid diethylamide',
       slug    : 'albert-hofmann'
     }
   ]
-};
-            </textarea>
+}</textarea>
           </div>
 
           <div class="input">
@@ -85,12 +89,12 @@
                   <div class="shade"></div>
               </div>
 
-<pre><code data-language="javascript">tm = new Thulium({template: myTemplate, data });
-tm.parseSync().renderSync(context);</code></pre>
+<pre class="exec-timer"><code data-language="javascript">tm = new Thulium( {template: myTemplate} );
+tm.parseSync().renderSync( data ); //time</code></pre>
             </div>
             
             <div class="result round">
-<pre><code data-language="html"><!-- result -->
+<pre class="compiled-result"><code data-language="html"><!-- result -->
 <div class="post-0">
   <div class="post-title">PER TEODOR CLEVE</div>
   <span class="date">10/2/1840</span>
@@ -253,25 +257,69 @@ This guy will be bold.
 
 
 <script>
+  //Simple function object to manage the web
   var thuliumWeb = {
     start : function(){
         this.element = $('.wrapper');
-        this.tryButton = this.element.find('.try-button');
+
+        this.tryButton      = this.element.find('.try-button');
         this.tryButtonLabel = this.element.find('.try-button span');
-        this.sandbox = this.element.find('.sandbox');
         
+        this.sandbox        = this.element.find('.sandbox');
+        this.compileButton  = this.element.find('.run-button');
+        this.templateInput  = this.element.find('[name=template]');
+        this.contextInput   = this.element.find('[name=context]');
+        this.compiledResult = this.element.find('.compiled-result');
+
         this.bindEvents();
     },
+
     bindEvents : function(){
         var thw = this;
         this.tryButton.on('click', function(){
-            thw.sandbox.toggleClass('collapsed');
-            thw.tryButtonLabel.toggleClass('hide');
             thw.expandSandbox();
         });
+
+        this.compileButton.on('click', function(){
+            thw.compileSandbox();
+        })
+
     },
+
     expandSandbox : function(){
-        //init sandbox logic
+        //declare this component only on button click because '.comment' doesnt exists before rainbow highlight
+        this.execTimer = this.element.find('.exec-timer .comment').hide();
+
+        this.sandbox.toggleClass('collapsed');    //show/hide sandbox
+        this.tryButtonLabel.toggleClass('hide');  //change button label
+    },
+
+    compileSandbox : function(){
+      var thw = this;
+          myTemplate = this.templateInput.val(),
+          data       = this.contextInput.val(),
+          context    = eval('(function(){ return '+data+'})')(),
+          tm         = null,
+          result     = '',
+          startTime  = new Date().getTime(),
+          endTime    = null;
+
+      //compile
+      tm     = new Thulium( {template: myTemplate} );
+      result = tm.parseSync().renderSync( context );
+      
+      endTime = new Date().getTime();
+      
+      //show exec time
+      this.execTimer.hide().html('//exec time: '+ (endTime-startTime) +'ms.').fadeIn();
+
+      //show result
+
+      Rainbow.color( result, 'html', function(highlighted){
+        thw.compiledResult.find('code').html( '<span class="comment html">&lt;!-- result --&gt;</span>'+highlighted );
+      });
+
+      
     }
   };
 
