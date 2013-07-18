@@ -65,6 +65,10 @@ body {
 	margin-bottom: 15px;
 }
 
+.header a{
+    text-decoration: none;
+}
+
 .tm-icon {
 	display: block;
 	margin: auto;
