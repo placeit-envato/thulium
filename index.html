@@ -34,9 +34,9 @@
 
     <div class="content">
       <div class="unit">
-        <div class="title first">What is it?</div>
+        <div class="title first h1">What is it?</div>
         <p class="content">
-          A proper JS templating engine. With specs and a syntax that isn't crazy (ie. Not Jade and not EJS).
+          A proper JS templating engine. With <a href="https://github.com/freshout-dev/thulium/blob/master/spec.md">specs</a> and a <a href="#simple-template">syntax that isn't crazy</a>. (ie. Not Jade and not EJS)
         </p>
       </div>
 
@@ -139,10 +139,20 @@ tm.parseSync().renderSync( data ); //time</code></pre>
       </div>
 
       <div class="unit">
-        <div class="title third">C'mon, You know what I mean.</div>
+        <div class="title third h1">So ... what is it?</div>
         <p class="content">
           <p>Thulium (Tm) is a templating engine written in javascript. It is based on EJS, but attempts to solve several problems with it: It formalizes the syntax and it attempts to make it more debuggable.</p>
           <p>This was a result of the EJS implementation being in direct need of performance, specification and debuggability.</p>
+
+          <span class="title">What is not:</span>
+          <ul>
+            <li>EJS</li>
+            <li>HTML shorthands</li>
+            <li>Jade, handlebars, mustache, etc.</li>
+          </ul>
+          
+          <p>Just think of it as a super fast Eruby-ish for Javascript.</p>
+
         </p>
       </div>
 
@@ -173,7 +183,7 @@ tm.parseSync().renderSync(context);</code></pre></div>
 
       <div class="unit">
         <h1>Examples</h1>
-        <div class="title fifth">A simple template</div>
+        <div id="simple-template" class="title fifth">A simple template</div>
 
         <p>The template</p>
         <pre><code data-language="html"><h1>Hello, <%= name %></h1>
