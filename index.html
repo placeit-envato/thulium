@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thulium beta</title>
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/rainbow.css"  type="text/css">
+  <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  
+  <script src="js/rainbow-custom.min.js"></script>
+  <script src="js/jquery.js"></script>
+
+</head>
+<body>
+  
+<a href="https://github.com/freshout-dev/thulium"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
+
+  <div class="top-line"></div>
+  <div class="wrapper">
+
+    <div class="header">
+      <img class="tm-icon" src="img/tm.png" alt="Thulium">
+      <h1 class="name">Thulium</h1>
+      <div class="tagline">The template engine for developers.</div>
+    </div>
+  
+      <div class="unit">
+
+              <div class="button try-button">
+                  <span class="try"></span>
+                  <div class="shade"></div>
+              </div>
+        
+        <div class="sandbox collapsed">
+          <div class="input">
+            <div class="highlighted-code">
+              <pre><code data-language="javascript">var myTemplate =</code></pre>
+            </div>
+            <textarea class="code" name="template"><% posts.forEach(function( post, index ){ %>
+<div class="post-<%= index %>">
+  <div class="post-title"><%= post.title.toUpperCase() %></div>
+  <span class="date"><%= post.date %></span>
+  <div class="post-content">
+    <p>
+    <%= post.content.substr(0,20) + '...' %>
+    </p>
+    <a href="<%= baseUrl+post.slug %>"> more...</a>
+  </div>
+</div>
+<% }) %></textarea>
+          </div>
+
+          <div class="input">
+            <div class="highlighted-code">
+              <pre><code data-language="javascript">var data =</code></pre>
+            </div>
+            <textarea class="code" name="context">
+{
+  baseUrl : 'my.domain.com/'
+  posts : [
+    {
+      title   : 'Per Teodor Cleve',
+      date    : '10/2/1840',
+      content : 'Thulium was discovered by Swedish chemist Per Teodor Cleve in 1879'
+      slug    : 'per-teodor-cleve'
+    },
+    {
+      title   : 'Albert Hofmann',
+      date    : '11/01/1906',
+      content : 'Albert Hofmann was first scientist and person to synthesize, ingest, and learn of the psychedelic effects of lysergic acid diethylamide'
+      slug    : 'albert-hofmann'
+    }
+  ]
+};
+            </textarea>
+          </div>
+
+          <div class="input">
+            <div class="highlighted-code round">
+
+              <div class="button run-button">
+                  <span>Compile!</span>
+                  <div class="shade"></div>
+              </div>
+
+<pre><code data-language="javascript">tm = new Thulium({template: myTemplate, data });
+tm.parseSync().renderSync(context);</code></pre>
+            </div>
+            
+            <div class="result round">
+<pre><code data-language="html"><!-- result -->
+<div class="post-0">
+  <div class="post-title">PER TEODOR CLEVE</div>
+  <span class="date">10/2/1840</span>
+  <div class="post-content">
+    <p>
+      Thulium was discover...
+    </p>
+    <a href="my.domain.com/albert-hofmann"> more...</a>
+  </div>
+</div>
+<div class="post-1">
+  <div class="post-title">ALBERT HOFMANN</div>
+  <span class="date">11/01/1906</span>
+  <div class="post-content">
+    <p>
+      Thulium was discover...
+    </p>
+    <a href="my.domain.com/albert-hofmann"> more...</a>
+  </div>
+</div></code></pre>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    <div class="content">
+      <div class="unit">
+        <div class="title first">What is it?</div>
+        <p class="content">
+          A proper JS templating engine. With specs and a syntax that isn't crazy (ie. Not Jade and not EJS).         
+        </p>
+      </div>
+
+      <div class="unit">
+        <div class="title third">C'mon, You know what I mean.</div>
+        <p class="content">
+          <p>Thulium (Tm) is a templating engine written in javascript. It is based on EJS, but attempts to solve several problems with it: It formalizes the syntax and it attempts to make it more debuggable.</p>
+          <p>This was a result of the EJS implementation being in direct need of both specification and debuggability.</p>
+        </p>
+      </div>
+
+      <div class="unit">
+        <div class="title fourth h1">Usage</div>
+        <p class="content">
+          <p>It's easy to use. If you want it in the browser, just require the files. If using node:</p>
+          <pre><code >$ npm install thulium</code></pre>
+          <p>From there, it's as easy as:</p>
+          <pre><code data-language="javascript">tm = new Thulium({template: "A template stri
+tm.parseSync().renderSync(context);</code></pre></div>
+          <p>Of course, async methods are available:</p>
+          <pre><code data-language="javascript">tm.parse(function () {
+  tm.render(context, function (view) {
+    console.log(view);
+  })
+})</code></pre>
+        </p>
+      </div>
+
+      <div class="unit">
+        <h1>Examples</h1>
+        <div class="title fifth">A simple template</div>
+
+        <p>The template</p>
+        <pre><code data-language="html"><h1>Hello, <%= name %></h1>
+<% for (var i = 0; i < 10; i++) { %>
+You are awesome.
+<% } %></code></pre>
+        
+        <p>The context</p>
+<pre><code data-language="javascript">{
+ name: "Col. Mustard"
+}</code></pre>
+        
+        <p>The output</p>
+<pre><code data-language="html"><h1>Hello, Col. Mustard</h1>
+<p> You are awesome. </p>
+<p> You are awesome. </p>
+<p> You are awesome. </p>
+<p> You are awesome. </p>
+<p> You are awesome. </p>
+<p> You are awesome. </p>
+<p> You are awesome. </p>
+<p> You are awesome. </p>
+<p> You are awesome. </p>
+<p> You are awesome. </p></code></pre>
+      
+      <p></p>
+      <div class="title first">A printable helper (capture style)</div>
+
+        <p>The template</p>
+        <pre><code data-language="html"><p>
+<%= h.reverse(function (){ %>
+This is my reversed string.
+<% }) %>
+</p></code></pre>
+        
+        <p>The context</p>
+<pre><code data-language="javascript">{
+ h: {
+    reverse : function (toCapture) {
+      // Let's imagine for a second that templateManager is a reference
+      // to a ... um, template manager. That has an instance of the
+      // current view. Which is our instance of Tm
+      var buffer = templateManager.currentView.renderer.capture(toCapture);
+      return buffer.split("").reverse().join("");
+    }
+ }
+}</code></pre>
+        
+        <p>The output</p>
+<pre><code data-language="html"><p>
+.gnirts desrever ym si sihT
+</p></code></pre>
+        
+        <p></p>
+        <div class="title second">A printable helper (custom style)</div>
+        <p>The template</p>
+        <pre><code data-language="html"><p>
+<%= h.embolden(function (){ %>
+This guy will be bold.
+<% }) %>
+</p></code></pre>
+        
+        <p>The context</p>
+<pre><code data-language="javascript">{
+ h: {
+    embolden : function (printable) {
+      // Let's imagine for a second that templateManager is a reference
+      // to a ... um, template manager. That has an instance of the
+      // current view. Which is our instance of Tm
+      templateManager.currentView.renderer.print("<strong>");
+
+      // here we're printing that stuff inside the block by executing it
+      printable();
+
+      return "</strong>";
+    }
+ }
+}</code></pre>
+        
+        <p>The output</p>
+<pre><code data-language="html"><p>
+<strong>
+This guy will be bold.
+</strong>
+</p></code></pre>
+
+
+      </div>
+
+    <div class="footer">
+      <img src="img/forgerons.gif">Crafted with high content of awesome at <a href="http://freshout.us">Freshout</a> by <a href="http://twitter.com/benbeltran">@benbeltran</a> and <a href="http://twitter.com/escusado">@escusado</a>
+    </div>
+
+    </div>
+
+  
+  </div> <!-- wrapper -->
+
+
+<script>
+  var thuliumWeb = {
+    start : function(){
+        this.element = $('.wrapper');
+        this.tryButton = this.element.find('.try-button');
+        this.tryButtonLabel = this.element.find('.try-button span');
+        this.sandbox = this.element.find('.sandbox');
+        
+        this.bindEvents();
+    },
+    bindEvents : function(){
+        var thw = this;
+        this.tryButton.on('click', function(){
+            thw.sandbox.toggleClass('collapsed');
+            thw.tryButtonLabel.toggleClass('hide');
+            thw.expandSandbox();
+        });
+    },
+    expandSandbox : function(){
+        //init sandbox logic
+    }
+  };
+
+  thuliumWeb.start();
+
+</script>
+  
+</body>
+</html>

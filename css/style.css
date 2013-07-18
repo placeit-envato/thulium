@@ -1,0 +1,221 @@
+body {
+	background-color: #eeeeee;
+	/* Trebuchet-based sans serif stack */
+	font-family: "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
+	color : #333;
+}
+
+/*************************************** button */
+.button{
+  padding : 1px 6px 3px 6px;
+  display: inline-block;
+  border-radius: 3px;
+  text-shadow : 0 1px rgba(255,255,255,.5);
+  box-shadow : 0 1px 0 0 rgba(255, 255, 255, 0.5) inset, -1px 0 0 0 rgba(255, 255, 255, 0.3) inset, 0 -2px 0 0 rgba(0, 0, 0, 0.3) inset, 1px 0 0 0 rgba(255, 255, 255, 0.3) inset, 0 0 0 1px rgba(0, 0, 0, 0.5);
+  user-select: none;
+  cursor : pointer;
+  position : relative;
+  overflow: hidden;
+  color : rgba(0,0,0,.8);
+}
+
+.button span{
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.button:hover .shade{
+      background-color: rgba(255,255,255,.2);
+      position : absolute;
+      top : -2px;
+      left : 0;
+      width : 100%;
+      height : 100%;
+      border-radius : 2px;
+}
+
+.button:active {
+    box-shadow : 0 1px 0 0 rgba(255, 255, 255, 0.5) inset, -1px 0 0 0 rgba(255, 255, 255, 0.3) inset, 0 -1px 0 0 rgba(0, 0, 0, 0.3) inset, 1px 0 0 0 rgba(255, 255, 255, 0.3) inset, 0 0 0 1px rgba(0, 0, 0, 0.5);
+    padding : 1px 6px 2px 6px;
+    margin-top: 1px;
+}
+.button:active .shade{
+    background-color: rgba(255,255,255,.5);
+}
+
+
+
+
+/******************************************** document */
+.top-line{
+	width: 100%;
+	height: 3px;
+	background-color: #456;
+
+    background: linear-gradient(to right,  #3366ff 20%,#ff3366 21%,#ff3366 40%,#93C763 41%,#93C763 60%,#ffcc33 61%,#ffcc33 80%,#7db9e8 81%); /* W3C */
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,.9);
+}
+
+.wrapper {
+	width  : 660px;
+	padding: 20px;
+	margin : auto;
+	background-color: #fdfdfd;
+}
+
+.header {
+	padding-top: 50px;
+	margin-bottom: 50px;
+}
+
+.tm-icon {
+	display: block;
+	margin: auto;
+}
+
+.name{
+	/*margin-bottom : 10px;*/
+
+	text-align  : center;
+	font-family : 'Montserrat', sans-serif;
+	font-size   : 48px;
+	font-weight : bold;
+
+	color       : #424242;
+}
+
+.tagline {
+	font-family : 'Montserrat', sans-serif;
+
+	text-align  : center;
+	font-weight: bold;
+	font-size: 16px;
+	color: #969696;
+}
+
+/********************************* .title */
+
+.title {
+	font-size: 24px;
+	/*font-weight: bold;*/
+}
+
+.title.h1{
+	font-family : 'Montserrat', sans-serif;
+	font-size: 32px;
+	font-weight: bold;
+}
+
+.title.first{
+	border-bottom: 2px solid #3366ff;
+}
+
+.title.second{
+	border-bottom: 2px solid #ff3366;
+}
+
+.title.third{
+	border-bottom: 2px solid #ff6633;
+}
+
+.title.fourth{
+	border-bottom: 2px solid #93C763;
+}
+
+.title.fifth{
+	border-bottom: 2px solid #ffcc33;
+}
+
+/********************************* .sandbox */
+
+.try-button{
+	background-color: #ffcc33;
+	margin: auto;
+	width: 210px;
+	text-align: center;
+	left: 34%;
+}
+
+.try-button span:before{
+	content : "Let me try it NOOOW!";
+}
+
+.try-button span.hide:before{
+	content : "Hide sandbox";
+}
+
+.sandbox.collapsed{
+	max-height:0px;
+	opacity: 0;
+}
+
+.sandbox {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background-color: #fff;
+	border: 1px solid rgba(0,0,0,.1);
+	border-radius: 3px;
+	padding: 10px 10px 25px;
+
+	overflow: hidden;
+	max-height:1000px;
+	opacity: 1;
+	
+	transition: max-height 1s, opacity 1s;
+}
+
+
+.code{
+	font-family: 'Courier New';
+	width: 615px;
+	padding: 10px;
+	height: 210px;
+	text-align: left;
+	font-size: 14px;
+	resize:vertical;
+	margin-bottom: 20px;
+	border-radius: 0 0 3px 3px;
+	border: 1px solid rgba(0,0,0,.1);
+}
+
+.highlighted-code.round {
+	position: relative;
+}
+
+.highlighted-code.round pre{
+	border-radius: 3px;
+}
+
+.highlighted-code pre{
+	font-family: 'Courier New';
+	border-radius: 3px 3px 0 0;
+	width: 617px;
+}
+
+.result pre{
+	margin-top: 5px;
+	border-radius: 3px;
+}
+
+.run-button{
+	position: absolute;
+	right: 15px;
+	top : 15px;
+	font-family : 'Montserrat', sans-serif;
+	background-color: #93C763;
+}
+
+.footer {
+	padding: 20px;
+	margin-top: 20px;
+	color: #ddd;
+	background-color: #333;
+	border-radius: 3px;
+	text-align: center;
+	font-size: 12px;
+}
+
+a {
+	color : #7194FF;
+	font-weight: bold;
+}
