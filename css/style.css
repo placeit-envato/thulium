@@ -97,6 +97,7 @@ body {
 
 .title {
 	font-size: 24px;
+  margin-top: 32px;
 	/*font-weight: bold;*/
 }
 
@@ -104,6 +105,7 @@ body {
 	font-family : 'Montserrat', sans-serif;
 	font-size: 32px;
 	font-weight: bold;
+  margin-top: 32px;
 }
 
 .title.first{
@@ -222,4 +224,8 @@ body {
 a {
 	color : #7194FF;
 	font-weight: bold;
+}
+
+.unit h1 {
+  margin-top: 64px;
 }
