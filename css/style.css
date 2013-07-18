@@ -182,7 +182,7 @@ body {
 	padding: 10px 10px 25px;
 
 	overflow: hidden;
-	max-height:1000px;
+	max-height:auto;
 	opacity: 1;
 	
 	transition: max-height 1s, opacity 1s, margin 1s, padding 1s;
